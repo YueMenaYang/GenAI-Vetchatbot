@@ -1,0 +1,19 @@
+# core data + PDF + env
+pandas
+pdfplumber
+tqdm
+python-dotenv
+
+torch
+faiss-cpu
+
+langchain
+langchain-community
+langchain_openai
+langgraph
+
+openai
+tiktoken
+
+streamlit
+streamlit-chat
