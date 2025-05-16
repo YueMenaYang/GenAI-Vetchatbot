@@ -1,8 +1,11 @@
+import os
+from dotenv import load_dotenv
+from langchain_openai import ChatOpenAI
 import streamlit as st
 import uuid
 from langchain_core.messages import HumanMessage, AIMessage
 
-from pmodel import graph, model, RelevantRouter
+from pmodel import graph, model, RelevantRouter, api_key, google_api_key
 from prompt import relevant_prompt
 
 # Initialize session state
@@ -32,6 +35,7 @@ for msg in st.session_state.state["messages"]:
         with st.chat_message("assistant"):
             st.markdown(f"**{name}:** {msg.content}")
 
+
 # Handle input
 if prompt := st.chat_input("How can I help your dog today?"):
     user_msg = HumanMessage(content=prompt)
@@ -42,25 +46,44 @@ if prompt := st.chat_input("How can I help your dog today?"):
         st.markdown(prompt)
     
     # 2️⃣ build the relevance check
-    relevance_messages = [
-        {"role":"system", "content": relevant_prompt},
-        *st.session_state.state["messages"]
-    ]
-    resp = model.with_structured_output(RelevantRouter).invoke(relevance_messages)
+    # load_dotenv()
+    # api_key = os.getenv("OPENAI_API_KEY")
+    # google_api_key = os.getenv("GOOGLE_PLACES_API_KEY")
+    # model = ChatOpenAI(model="gpt-4o", openai_api_key=api_key)
+    # print("model set")
+    # st.markdown("Checking relevance ...")
+    with st.spinner("Checking relevance..."):
+        relevance_messages = [
+            {"role":"system", "content": relevant_prompt},
+            *st.session_state.state["messages"]
+        ]
+        resp = model.with_structured_output(RelevantRouter).invoke(relevance_messages)
 
-    # 3️⃣ if not about dogs, show the canned reply and stop
+        # 3️⃣ if not about dogs, show the canned reply and stop
     if resp["next"] != "supervisor":
         ai_msg = AIMessage(
             content=(
-              "This assistant is for veterinary and dog-related "
-              "questions. Please ask something related to your dog’s "
-              "health or care."
+            "This assistant is for veterinary and dog-related "
+            "questions. Please ask something related to your dog’s "
+            "health or care."
             ),
             name="check_irrelevant"
         )
         st.session_state.state["messages"].append(ai_msg)
         with st.chat_message("assistant"):
             st.markdown(ai_msg.content)
+            
+        with st.sidebar:
+            if st.button("🔄 Reset Chat"):
+                st.session_state.thread_id = str(uuid.uuid4())
+                st.session_state.state = {
+                    "messages": [],
+                    "next": None,
+                    "zip_code": "",
+                    "pending_zipcode": False,
+                }
+                st.rerun()
+        
         # skip graph entirely
         st.stop()
     

@@ -41,7 +41,7 @@ vector_store = load_faiss_index(
     embeddings  
 )
 
-model = ChatOpenAI(model="gpt-4o")
+model = ChatOpenAI(model="gpt-4o", openai_api_key=api_key)
 
 class State(MessagesState):
     next: str

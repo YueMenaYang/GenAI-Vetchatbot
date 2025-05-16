@@ -180,6 +180,7 @@ ROOT = Path(__file__).parent.parent
 
 def main():
     openai_key = get_openai_key()
+    print(openai_key)
 
     # — your original paths —
     ROOT = Path(__file__).parent.parent
@@ -268,5 +269,5 @@ def main():
         # Show latest turn
         print(f"Assistant: {answer}\n")
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     main()

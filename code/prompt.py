@@ -28,7 +28,7 @@
 # )
 
 system_prompt = (
-    "You are a supervisor managing a conversation between the following workers: doctor, hospital_recommender, check_relevant, check_zipcode. "
+    "You are a supervisor managing a conversation between the following workers: doctor, hospital_recommender, check_zipcode. "
     "Given the user's request and the responses from each node, decide which node should act next.\n"
     "You MUST always choose from one of the five nodes - doctor, hospital_recommender, check_zipcode, and FINISH."
 
