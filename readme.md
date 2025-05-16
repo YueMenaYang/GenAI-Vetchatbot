@@ -40,11 +40,11 @@ vetdogchatbot/
 
 On terminal:
 ```
-#Clone the repo
+# Clone the repo
 git clone https://github.com/YueMenaYang/GenAI-Vetchatbot.git
 cd GenAI-Vetchatbot
 
-#Create & activate a virtual environment
+# Create & activate a virtual environment
 python3 -m venv .venv
 source .venv/bin/activate
 
@@ -56,12 +56,15 @@ pip install -r code/requirements.txt
 ## 🔑 Configuration
 ```
 # Create your .env file for API keys
+# Replace the placeholders with your own API keys before running:
+# OPENAI_API_KEY=sk-... → your OpenAI key
+# GOOGLE_PLACES_API_KEY=AIza... → your Google Places key
 cat <<EOF > code/.env
 OPENAI_API_KEY=sk-...
 GOOGLE_PLACES_API_KEY=AIza...
 EOF
 
-# Ensure it's ignored
+# Ensure the .env file is ignored by Git (prevents accidental commits of API keys)
 grep -qxF "code/.env" .gitignore || echo "code/.env" >> .gitignore
 ```
 
