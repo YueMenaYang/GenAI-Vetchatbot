@@ -13,6 +13,19 @@ A Streamlit-powered chatbot for veterinary and dog-care questions, built with La
 - Provides general dog health advice  
 
 
+## 🧪 Experiment Results
+
+We evaluated VetChat’s performance using a series of test queries designed to represent different real-world use cases, including:
+- Common symptom-based queries
+- General health advice queries
+- Requests for hospital recommendations
+- Irrelevant or non-dog-related inputs
+
+The chatbot's behavior, responses, and flow through the multi-agent system were recorded during these tests. You can watch a demo of the chatbot in action here:
+
+https://www.youtube.com/watch?v=MkC_taBFrC0
+
+
 ## 📁 Repository Structure
 
 ```
